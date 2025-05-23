@@ -13,6 +13,10 @@ async function greet() {
 
 <template>
   <main class="container">
+    <div class="flex items-center justify-center min-h-screen bg-gray-900 text-white">
+      <h1 class="text-4xl font-bold text-fluent-blue">Hello, World!</h1>
+    </div>
+
     <h1>Welcome to Tauri + Vue</h1>
 
     <div class="row">
@@ -37,6 +41,10 @@ async function greet() {
 </template>
 
 <style scoped>
+.text-fluent-blue{
+  color: #0078D4; /* Windows 11のFluent Design風カラー */
+}
+
 .logo.vite:hover {
   filter: drop-shadow(0 0 2em #747bff);
 }
@@ -44,7 +52,6 @@ async function greet() {
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #249b73);
 }
-
 </style>
 <style>
 :root {
