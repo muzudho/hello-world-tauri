@@ -5,6 +5,12 @@ fn greet(name: &str) -> String {
 }
 
 #[tauri::command]
+fn add_two_numbers(num1: i64, num2: i64) -> String {
+    format!("{}", num1 + num2)
+}
+
+/*
+#[tauri::command]
 fn add_two_numbers(num1: &str, num2: &str) -> String {
     let result: Result<i32, _> = num1.parse();
     let num1_num = if let Ok(num) = result {
@@ -22,6 +28,7 @@ fn add_two_numbers(num1: &str, num2: &str) -> String {
        
     format!("{}", num1_num + num2_num)
 }
+// */
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {

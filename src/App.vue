@@ -2,19 +2,21 @@
 import { ref } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 
-const greetMsg = ref("");
-const name = ref("");
-const num1_model = ref("");
-const num2_model = ref("");
-const num3_model = ref("");
+// ビューモデル（View Model）。
+const greetMsgVM = ref("");
+const nameVM = ref("");
+const num1VM = ref("");
+const num2VM = ref("");
+const num3VM = ref("");
 
-async function greet() {
+// イベントハンドラー。
+async function on_greet_button_clicked() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-  greetMsg.value = await invoke("greet", { name: name.value });
+  greetMsgVM.value = await invoke("greet", { name: nameVM.value });
 }
 
-async function add_two_numbers() {
-  num3_model.value = await invoke("add_two_numbers", { num1: num1_model.value, num2: num2_model.value });
+async function on_add_button_clicked() {
+  num3VM.value = await invoke("add_two_numbers", { num1: num1VM.value, num2: num2VM.value });
 }
 </script>
 
@@ -39,20 +41,20 @@ async function add_two_numbers() {
     </div>
     <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
 
-    <form class="row" @submit.prevent="greet">
-      <input id="greet-input" v-model="name" placeholder="Enter a name..." />
+    <form class="row" @submit.prevent="on_greet_button_clicked">
+      <input id="greet-input" v-model="nameVM" placeholder="Enter a name..." />
       <button type="submit">Greet</button>
     </form>
-    <p>{{ greetMsg }}</p>
+    <p>{{ greetMsgVM }}</p>
 
     <h1>テスト</h1>
-    <form class="row" @submit.prevent="add_two_numbers">
-      <input id="add-two-numbers-param1" v-model="num1_model" placeholder="2"/>
+    <form class="row" @submit.prevent="on_add_button_clicked">
+      <input id="add-two-numbers-param1" v-model.number="num1VM" type="number" placeholder="数字1（例：2）"/>
       ＋
-      <input id="add-two-numbers-param2" v-model="num2_model" placeholder="3"/>
+      <input id="add-two-numbers-param2" v-model.number="num2VM" type="number" placeholder="数字2（例：3）"/>
       <button type="submit">足し算</button>
       答え：
-      <input id="add-two-numbers-ret1" v-model="num3_model">
+      <input id="add-two-numbers-ret1" v-model="num3VM">
     </form>
   </main>
 </template>
