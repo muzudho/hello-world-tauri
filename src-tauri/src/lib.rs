@@ -6,7 +6,21 @@ fn greet(name: &str) -> String {
 
 #[tauri::command]
 fn add_two_numbers(num1: &str, num2: &str) -> String {
-    format!("add_two_numbers, {} + {} =x!", num1, num2)
+    let result: Result<i32, _> = num1.parse();
+    let num1_num = if let Ok(num) = result {
+        num
+    } else {
+        panic!()
+    };
+
+    let result: Result<i32, _> = num2.parse();
+    let num2_num = if let Ok(num) = result {
+        num
+    } else {
+        panic!()
+    };
+       
+    format!("{}", num1_num + num2_num)
 }
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]

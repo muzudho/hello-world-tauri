@@ -6,6 +6,7 @@ const greetMsg = ref("");
 const name = ref("");
 const num1_model = ref("");
 const num2_model = ref("");
+const num3_model = ref("");
 
 async function greet() {
   // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
@@ -13,7 +14,7 @@ async function greet() {
 }
 
 async function add_two_numbers() {
-  greetMsg.value = await invoke("add_two_numbers", { num1: num1_model.value, num2: num2_model.value });
+  num3_model.value = await invoke("add_two_numbers", { num1: num1_model.value, num2: num2_model.value });
 }
 </script>
 
@@ -51,7 +52,7 @@ async function add_two_numbers() {
       <input id="add-two-numbers-param2" v-model="num2_model" placeholder="3"/>
       <button type="submit">足し算</button>
       答え：
-      <input>
+      <input id="add-two-numbers-ret1" v-model="num3_model">
     </form>
   </main>
 </template>
