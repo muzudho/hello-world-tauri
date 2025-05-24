@@ -4,14 +4,27 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+/*
 #[tauri::command]
 fn add_two_numbers(num1: i64, num2: i64) -> String {
     format!("{}", num1 + num2)
 }
+// */
+
+//*
+#[tauri::command]
+fn add_two_numbers(num1: i64, num2: i64) -> Result<i64, String> {
+    if num1 > 9999 || num2 > 9999 {
+        return Err("9999以下の数字を入力してください。".to_string());
+    }
+    //Ok(format!("{}", num1 + num2))
+    Ok(num1 + num2)
+}
+// */
 
 /*
 #[tauri::command]
-fn add_two_numbers(num1: &str, num2: &str) -> String {
+fn add_two_numbers_2(num1: &str, num2: &str) -> String {
     let result: Result<i32, _> = num1.parse();
     let num1_num = if let Ok(num) = result {
         num

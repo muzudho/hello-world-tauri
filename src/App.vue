@@ -8,6 +8,7 @@ const nameVM = ref("");
 const num1VM = ref("");
 const num2VM = ref("");
 const num3VM = ref("");
+const errorVM = ref("");
 
 // イベントハンドラー。
 async function on_greet_button_clicked() {
@@ -17,6 +18,10 @@ async function on_greet_button_clicked() {
 
 async function on_add_button_clicked() {
   num3VM.value = await invoke("add_two_numbers", { num1: num1VM.value, num2: num2VM.value });
+  errorVM.value = "エラー無し。"
+  /*
+  num3VM.value = await invoke("add_two_numbers", { num1: num1VM.value, num2: num2VM.value });
+   */
 }
 </script>
 
@@ -48,13 +53,16 @@ async function on_add_button_clicked() {
     <p>{{ greetMsgVM }}</p>
 
     <h1>テスト</h1>
-    <form class="row" @submit.prevent="on_add_button_clicked">
+    <form @submit.prevent="on_add_button_clicked">
       <input id="add-two-numbers-param1" v-model.number="num1VM" type="number" placeholder="数字1（例：2）"/>
       ＋
       <input id="add-two-numbers-param2" v-model.number="num2VM" type="number" placeholder="数字2（例：3）"/>
-      <button type="submit">足し算</button>
+      <button type="submit">足し算</button><br/>
       答え：
       <input id="add-two-numbers-ret1" v-model="num3VM">
+      <p v-if="errorVM" class="text-red-500 text-sm mt-2">
+        {{ errorVM }}
+      </p>
     </form>
   </main>
 </template>
